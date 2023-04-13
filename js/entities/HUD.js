@@ -1,6 +1,7 @@
 import * as me from 'https://esm.run/melonjs@13';
 import game from './../game.js';
 
+
 /**
  * a basic control to toggle fullscreen on/off
  */
@@ -102,20 +103,22 @@ class ScoreItem extends me.BitmapText {
     constructor(x, y) {
         // call the super constructor
         super(
-            me.game.viewport.width  + x,
-            me.game.viewport.height + y,
+            me.game.viewport.width,
+            me.game.viewport.height,
             {
                 font : "PressStart2P",
-                textAlign : "right",
-                textBaseline : "bottom",
+                textAlign : "left",
+                textBaseline : "top",
+                size : 0.5,
                 text : "0"
             }
         );
 
+
         this.relative = new me.Vector2d(x, y);
 
         // local copy of the global score
-        this.score = -1;
+        // this.score = -1;
 
         // recalculate the object position if the canvas is resize
         me.event.on(me.event.CANVAS_ONRESIZE, (function(w, h){
@@ -126,14 +129,14 @@ class ScoreItem extends me.BitmapText {
     /**
      * update function
      */
-    update( dt ) {
-        if (this.score !== game.data.score) {
-            this.score = game.data.score;
-            this.setText(this.score);
-            this.isDirty = true;
-        }
-        return super.update(dt);
-    }
+    // update( dt ) {
+    //     if (this.score !== game.data.score) {
+    //         this.score = game.data.score;
+    //         this.setText(this.score);
+    //         this.isDirty = true;
+    //     }
+    //     return super.update(dt);
+    // }
 };
 
 /**

@@ -29,7 +29,6 @@ export default function onload() {
 
     // initialize the "sound engine"
     me.audio.init("mp3,ogg");
-    me.audio.setVolume(0.5);
 
     // set all ressources to be loaded
     me.loader.preload(resources, () => {
@@ -79,4 +78,5 @@ export default function onload() {
         me.state.change(me.state.PLAY);
     });
 
+    
 }

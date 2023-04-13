@@ -26,11 +26,11 @@ class PlayScreen extends me.Stage {
             if (typeof this.virtualJoypad === "undefined") {
                 this.virtualJoypad = new VirtualJoypad();
             }
-            me.game.world.addChild(this.virtualJoypad);
+            // me.game.world.addChild(this.virtualJoypad);
         }
 
         // play some music
-        me.audio.playTrack("dst-gameforest");
+        me.audio.playTrack("bgm-downward"); // https://www.youtube.com/watch?v=h4yggJ1wbP0
     }
 
     /**

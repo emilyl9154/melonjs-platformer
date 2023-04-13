@@ -13,9 +13,11 @@ var resources = [
      * { name: "example01", type: "tmx", src: "data/map/example01.tmx" },
      * { name: "example01", type: "tmx", src: "data/map/example01.json" },
      */
-    { name: "map1",            type: "tmx",    src: "data/map/map1.tmx" },
+    { name: "map1",            type: "tmx",    src: "data/map/map1.json" },
     { name: "map2",            type: "tmx",    src: "data/map/map2.json" },
-
+    { name: "map3",            type: "tmx",    src: "data/map/map3.json" },
+    { name: "map4",            type: "tmx",    src: "data/map/map4.json" },
+    { name: "map5",            type: "tmx",    src: "data/map/map5.json" },
 
     /* Tilesets.
      * @example
@@ -29,7 +31,7 @@ var resources = [
      * @example
      * { name: "example_bgm", type: "audio", src: "data/bgm/" },
      */
-    { name: "dst-gameforest",  type: "audio", src: "data/bgm/" },
+    { name: "bgm-downward",  type: "audio", src: "data/bgm/" },
 
     /* Sound effects.
      * @example

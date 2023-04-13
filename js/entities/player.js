@@ -21,7 +21,7 @@ class PlayerEntity extends me.Entity {
 
         this.dying = false;
 
-        this.multipleJump = 1;
+        this.multipleJump = 0;
 
         // set the viewport to follow this renderable on both axis, and enable damping
         me.game.viewport.follow(this, me.game.viewport.AXIS.BOTH, 0.1);
@@ -34,11 +34,11 @@ class PlayerEntity extends me.Entity {
         me.input.bindKey(me.input.KEY.SPACE, "jump", true);
         me.input.bindKey(me.input.KEY.DOWN,  "down");
 
-        me.input.bindKey(me.input.KEY.Q,  "up");
-        me.input.bindKey(me.input.KEY.E,  "down");
-        me.input.bindKey(me.input.KEY.G,  "gravity");
-        me.input.bindKey(me.input.KEY.B,  "bounce");
-        me.input.bindKey(me.input.KEY.I,  "changeGravity");
+        // me.input.bindKey(me.input.KEY.Q,  "up");
+        // me.input.bindKey(me.input.KEY.E,  "down");
+        // me.input.bindKey(me.input.KEY.G,  "antiGravity");
+        // me.input.bindKey(me.input.KEY.B,  "bounce");
+        me.input.bindKey(me.input.KEY.Z,  "lowGravity");
         me.input.bindKey(me.input.KEY.SHIFT,  "sprint");
 
         me.input.bindKey(me.input.KEY.A,     "left");
@@ -89,21 +89,8 @@ class PlayerEntity extends me.Entity {
 
         // ------ tinkering ------
 
-        // https://melonjs.github.io/melonJS/docs/melonjs/BitmapText.html
-        // var myFont = new me.BitmapText(me.loader.getBinary(x, y, {font:"PressStart2P", text:"Hello"}));
-        // me.game.world.addChild(myFont);
-
-        if (me.input.isKeyPressed("gravity")){ // G
-            if (this.body.ignoreGravity){
-                this.body.ignoreGravity = false;
-                console.log("anti-gravity is off");
-            }
-            else if (this.body.ignoreGravity == false){
-                this.body.ignoreGravity = true;
-                console.log("anti-gravity is on");
-            }
-        }
-        if (me.input.isKeyPressed("bounce")){ // B
+        // B: toggle ability to bounce
+        if (me.input.isKeyPressed("bounce")){
             if (this.body.bounce == 0){
                 this.body.bounce = 1;
                 console.log("bounce is on");
@@ -114,31 +101,30 @@ class PlayerEntity extends me.Entity {
             }
         }
 
-        if (me.input.isKeyPressed("changeGravity")){ // I
-            if (this.body.gravityScale == 1){
+        // Z: toggle low gravity
+        if (me.input.isKeyPressed("lowGravity")){
                 this.body.gravityScale = 0.5;
-                console.log("low-gravity is on");
-            } else if (this.body.gravityScale = 0.5) {
-                this.body.gravityScale = 1;
-                console.log("low-gravity is off");
-            }
+        }
+        else {
+            this.body.gravityScale = 1;
         }
 
-        if (me.input.isKeyPressed("sprint")){ // SHIFT
+        // SHIFT: hold to sprint
+        if (me.input.isKeyPressed("sprint")){
             this.body.setMaxVelocity(10, 15);
         }
         else {
             this.body.setMaxVelocity(3, 15);
         }
 
-        // move down when pressing e
-        if (me.input.isKeyPressed("down")){ // E
-            this.body.force.y = this.body.maxVel.y;
-        }
-        // move up when pressing q
-        if (me.input.isKeyPressed("up")){ // Q
-            this.body.force.y = -this.body.maxVel.y;
-        }
+        // // move down when pressing e
+        // if (me.input.isKeyPressed("down")){ // E
+        //     this.body.force.y = this.body.maxVel.y;
+        // }
+        // // move up when pressing q
+        // if (me.input.isKeyPressed("up")){ // Q
+        //     this.body.force.y = -this.body.maxVel.y;
+        // }
 
         // ------ tinkering ------
 
@@ -152,22 +138,32 @@ class PlayerEntity extends me.Entity {
             this.renderable.flipX(false);
         }
 
+
         if (me.input.isKeyPressed("jump")) {
             this.body.jumping = true;
-            if (this.multipleJump <= 2) {
-                // easy "math" for double jump
-                this.body.force.y = -this.body.maxVel.y * this.multipleJump++;
+            this.multipleJump++;
+            if (this.multipleJump <= 1) {
+                console.log(this.multipleJump)
+                // only jump once
+                this.body.force.y = -this.body.maxVel.y;
                 me.audio.stop("jump");
                 me.audio.play("jump", false);
             }
-        } else {
+            else {
+                // prevent double jump
+                this.body.force.y = -this.body.maxVel.y;
+                me.audio.stop("jump");
+                me.audio.play("jump", false);
+            }
+        }
+        else {
             if (!this.body.falling && !this.body.jumping) {
                 // reset the multipleJump flag if on the ground
                 this.multipleJump = 1;
             }
-            else if (this.body.falling && this.multipleJump < 2) {
+            else if (this.body.falling && this.multipleJump < 1) {
                 // reset the multipleJump flag if falling
-                this.multipleJump = 2;
+                this.multipleJump = 1;
             }
         }
 

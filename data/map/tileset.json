@@ -4,16 +4,11 @@
  "imagewidth":1440,
  "margin":5,
  "name":"tileset",
- "properties":
-    {
-
-    },
  "spacing":10,
  "tilecount":252,
+ "tiledversion":"1.9.2",
  "tileheight":70,
- "tiles":
-    {
-     "195":
+ "tiles":[
         {
          "animation":[
                 {
@@ -23,9 +18,9 @@
                 {
                  "duration":100,
                  "tileid":196
-                }]
-        },
-     "216":
+                }],
+         "id":195
+        }, 
         {
          "animation":[
                 {
@@ -35,8 +30,10 @@
                 {
                  "duration":200,
                  "tileid":217
-                }]
-        }
-    },
- "tilewidth":70
+                }],
+         "id":216
+        }],
+ "tilewidth":70,
+ "type":"tileset",
+ "version":"1.9"
 }
